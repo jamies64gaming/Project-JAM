@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placeholder: {fileID: 1453159947}
-  steps: 10
+  steps: 30
   spacing: 15
 --- !u!4 &554612478
 Transform:
@@ -589,6 +589,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Car
+      objectReference: {fileID: 0}
+    - target: {fileID: 5959510851313015279, guid: 8a7ff079bddebab4aa869cb2404a7b39,
+        type: 3}
+      propertyPath: maxSteeringAngle
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8447522183671305784, guid: 8a7ff079bddebab4aa869cb2404a7b39,
         type: 3}
