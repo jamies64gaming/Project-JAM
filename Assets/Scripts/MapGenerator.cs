@@ -1,10 +1,12 @@
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    public GameObject placeholder;
+    public GameObject car;
+    public GameObject straightRoad;
+    public List<GameObject> obstacles;
 
     public int steps = 10;
 
@@ -13,11 +15,13 @@ public class MapGenerator : MonoBehaviour
     Vector3 startingPos = new Vector3(0,0,0);
     Vector3 currentPos;
     Vector3 nextPos;
+    string direction;
 
     Vector3 rotation;
 
     List<Vector3> positions = new List<Vector3>();
     List<Vector3> rotations = new List<Vector3>();
+    List<string> directions = new List<string>();
 
     // Start is called before the first frame update
     void Start()
@@ -27,53 +31,58 @@ public class MapGenerator : MonoBehaviour
         {
             Direction();
         }
-        for(int i = 0; i < positions.Count; i++)
-        {
-            placeholder.name = i.ToString();
-
-            Instantiate(placeholder ,positions[i], Quaternion.Euler(rotations[i]));
-        }
+        car.transform.position = positions[0];
     }
 
 
     void Direction()
     {
-        int breakpoint = 0;
-        bool valid = false;
-        while (!valid && breakpoint != 10)
+        
+        nextPos = currentPos + new Vector3(0, 0, spacing);
+
+        positions.Add(nextPos);
+        Debug.Log(nextPos);
+        PlaceRoad(nextPos);
+    }
+
+    void PlaceRoad(Vector3 pos)
+    {
+        if(positions.Count % 5 == 0)
         {
-            int D = Random.Range(0, 3);
-            if (D == 0)
+            GameObject obs = obstacles[Random.Range(0, obstacles.Count)];
+            currentPos = currentPos + obs.transform.Find("last").transform.position;
+            Vector3 rot;
+            if (obs.name == "obs1")
             {
-                nextPos = currentPos + new Vector3(spacing, 0, 0);
-                rotation = new Vector3(0, 0, 0);
-            }
-            else if (D == 1)
-            {
-                nextPos = currentPos + new Vector3(0, 0, -spacing);
-                rotation = new Vector3(0, 90, 0);
+                rot = new Vector3(0, 180, 0);
             }
             else
             {
-                nextPos = currentPos + new Vector3(0, 0, spacing);
-                rotation = new Vector3(0, 90, 0);
+                rot = new Vector3(0, 0, 0);
             }
-
-            for (int i = 0; i < positions.Count; i++)
-            {
-                if(positions[i] == nextPos)
-                {
-                    valid = false;
-                    break; 
-                }
-                valid = true;
-            }
-            breakpoint++;
+            Instantiate(obs, pos, Quaternion.Euler(rot));
         }
-        Debug.Log(breakpoint);
-        positions.Add(nextPos);
-        rotations.Add(rotation);
-        currentPos = nextPos;
+        else
+        {
+            straightRoad.name = currentPos.ToString();
+            Instantiate(straightRoad,pos, Quaternion.Euler(0, 0, 0));
+            currentPos = nextPos;
+        }
+    }
+
+    public void SpawnMore()
+    {
+        for (int i = 0; i < steps; i++)
+        {
+            Direction();
+            DeletePrev();
+        }
+        Debug.Log("exec");
+    }
+
+    void DeletePrev()
+    {
+
     }
 
 }
