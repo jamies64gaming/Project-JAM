@@ -1,10 +1,13 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MapGenerator : MonoBehaviour
 {
     public GameObject car;
+    public GameObject prom;
     public GameObject straightRoad;
     public List<GameObject> obstacles;
 
@@ -83,6 +86,21 @@ public class MapGenerator : MonoBehaviour
     void DeletePrev()
     {
 
+    }
+
+    private void Update()
+    {
+        Death();
+    }
+
+    void Death()
+    {
+        if (Mathf.RoundToInt(prom.GetComponent<PrometeoCarController>().carSpeed) == 0)
+        {
+            Debug.Log("Dead in the water");
+        }
+       // Debug.Log(Mathf.RoundToInt(prom.GetComponent<PrometeoCarController>().carSpeed));
+        
     }
 
 }
