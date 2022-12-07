@@ -44,7 +44,7 @@ public class MapGenerator : MonoBehaviour
         nextPos = currentPos + new Vector3(0, 0, spacing);
 
         positions.Add(nextPos);
-        Debug.Log(nextPos);
+        //Debug.Log(nextPos);
         PlaceRoad(nextPos);
     }
 
@@ -80,7 +80,7 @@ public class MapGenerator : MonoBehaviour
             Direction();
             DeletePrev();
         }
-        Debug.Log("exec");
+        //Debug.Log("exec");
     }
 
     void DeletePrev()
@@ -97,7 +97,7 @@ public class MapGenerator : MonoBehaviour
     {
         if (Mathf.RoundToInt(prom.GetComponent<PrometeoCarController>().carSpeed) == 0)
         {
-            Debug.Log("Dead in the water");
+            //Debug.Log("Dead in the water");
         }
        // Debug.Log(Mathf.RoundToInt(prom.GetComponent<PrometeoCarController>().carSpeed));
         
