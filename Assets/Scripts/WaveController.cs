@@ -33,5 +33,11 @@ public class WaveController : MonoBehaviour
 
         speed += Time.deltaTime / 100;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.name);
+        Destroy(collision.gameObject);   
+    }
     
 }

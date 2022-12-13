@@ -15,11 +15,14 @@ public class ScoreCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float score = PlayerPrefs.GetFloat("Score", 0);
+        if(PlayerPrefs.GetInt("Alive",0) == 1)
+        {
+            float score = PlayerPrefs.GetFloat("Score", 0);
 
-        score += Time.deltaTime;
-        
-        scoreText.text = Mathf.RoundToInt(score).ToString();
-        PlayerPrefs.SetFloat("Score", score);
+            score += Time.deltaTime;
+
+            scoreText.text = Mathf.RoundToInt(score).ToString();
+            PlayerPrefs.SetFloat("Score", score);
+        }
     }
 }

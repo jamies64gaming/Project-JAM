@@ -6,8 +6,12 @@ using Random = UnityEngine.Random;
 
 public class MapGenerator : MonoBehaviour
 {
+
+    [Header("car settings")]
     public GameObject car;
     public GameObject prom;
+
+    [Header("road settings")]
     public GameObject straightRoad;
     public List<GameObject> obstacles;
 
@@ -15,10 +19,17 @@ public class MapGenerator : MonoBehaviour
 
     public int spacing = 20;
 
-    Vector3 startingPos = new Vector3(0,0,0);
+    [Header("obstacle settings")]
+    [Range(0, 100)]
+    public float chanceOfObjSpawn;
+    public List<GameObject> items = new List<GameObject>();
+
+
+    Vector3 startingPos = new Vector3(0, 0, 0);
     Vector3 currentPos;
     Vector3 nextPos;
     string direction;
+
 
     Vector3 rotation;
 
@@ -40,7 +51,7 @@ public class MapGenerator : MonoBehaviour
 
     void Direction()
     {
-        
+
         nextPos = currentPos + new Vector3(0, 0, spacing);
 
         positions.Add(nextPos);
@@ -50,7 +61,7 @@ public class MapGenerator : MonoBehaviour
 
     void PlaceRoad(Vector3 pos)
     {
-        if(positions.Count % 5 == 0)
+        if (positions.Count % 5 == 0)
         {
             GameObject obs = obstacles[Random.Range(0, obstacles.Count)];
             currentPos = currentPos + obs.transform.Find("last").transform.position;
@@ -68,7 +79,7 @@ public class MapGenerator : MonoBehaviour
         else
         {
             straightRoad.name = currentPos.ToString();
-            Instantiate(straightRoad,pos, Quaternion.Euler(0, 0, 0));
+            Instantiate(straightRoad, pos, Quaternion.Euler(0, 0, 0));
             currentPos = nextPos;
         }
     }
@@ -78,14 +89,8 @@ public class MapGenerator : MonoBehaviour
         for (int i = 0; i < steps; i++)
         {
             Direction();
-            DeletePrev();
         }
         //Debug.Log("exec");
-    }
-
-    void DeletePrev()
-    {
-
     }
 
     private void Update()
@@ -99,8 +104,8 @@ public class MapGenerator : MonoBehaviour
         {
             //Debug.Log("Dead in the water");
         }
-       // Debug.Log(Mathf.RoundToInt(prom.GetComponent<PrometeoCarController>().carSpeed));
-        
+        // Debug.Log(Mathf.RoundToInt(prom.GetComponent<PrometeoCarController>().carSpeed));
+
     }
 
 }
