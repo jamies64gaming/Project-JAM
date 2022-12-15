@@ -9,6 +9,8 @@ public class WaveController : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float carDist;
+
+    [SerializeField] GameObject wastedUI;
     public Transform car;
     // Start is called before the first frame update
     void Start()
@@ -36,8 +38,25 @@ public class WaveController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
-        Destroy(collision.gameObject);   
+        if(collision.gameObject.name == "Prometheus")
+        {
+            Time.timeScale = .1f;
+            Invoke("StopTime", 1);
+            wastedUI.SetActive(true);
+            PlayerPrefs.SetInt("Alive", 0);
+            
+        }
+         
     }
     
+    void StopTime()
+    {
+        Time.timeScale = 0;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
 }

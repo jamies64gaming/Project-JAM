@@ -10,6 +10,7 @@ public class ScoreCounter : MonoBehaviour
     void Start()
     {
         PlayerPrefs.SetFloat("Score", 0);
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
