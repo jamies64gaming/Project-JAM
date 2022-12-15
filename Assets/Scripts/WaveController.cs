@@ -29,7 +29,7 @@ public class WaveController : MonoBehaviour
         }
         else
         {
-            pos = car.position - new Vector3(0, -4, carDist);
+            pos += new Vector3(0, 0, 3 * speed * Time.deltaTime);
         }
         transform.position = pos; 
 

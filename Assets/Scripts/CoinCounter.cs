@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CoinCounter : MonoBehaviour
 {
+    public AudioSource source;
     private void OnTriggerEnter(Collider other)
     {
         if (other.name == "Prometheus")
@@ -12,8 +13,10 @@ public class CoinCounter : MonoBehaviour
             float score = PlayerPrefs.GetFloat("Score", 0);
             score += 5;
             PlayerPrefs.SetFloat("Score", score);
-            
-            Destroy(gameObject);
+
+            source.Play();
+            transform.GetChild(0).gameObject.SetActive(false);
+            Destroy(gameObject, 1);
         }
     }
 }
